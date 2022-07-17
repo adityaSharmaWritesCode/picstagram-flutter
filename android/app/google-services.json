@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "760480030603",
+    "project_id": "picstagram-5d0f8",
+    "storage_bucket": "picstagram-5d0f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760480030603:android:df9bb09b093063ddc1198e",
+        "android_client_info": {
+          "package_name": "com.example.picstagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760480030603-cor6vtv20oa9aiig4f28l7lm2sjs00k9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADEsXMXk1KBX1QkuwAT9SRdJs_Hw6N3dE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760480030603-cor6vtv20oa9aiig4f28l7lm2sjs00k9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
