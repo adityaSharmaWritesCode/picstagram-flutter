@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:picstagram/responsive/mobile_layout.dart';
 import 'package:picstagram/responsive/responsive.dart';
 import 'package:picstagram/responsive/web_layout.dart';
+import 'package:picstagram/screens/loginScreen.dart';
+import 'package:picstagram/screens/registerScreen.dart';
 
 void main() async {
   //Ensures that all the widgets have been built before the next line is executed.
@@ -42,16 +44,26 @@ class _MyAppState extends State<MyApp> {
       title: 'Picstagram',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 1),
+        primaryColor: const Color.fromRGBO(0, 149, 246, 1),
+        textTheme: const TextTheme(
+          displayMedium: TextStyle(
+            fontFamily: 'Grand_Hotel',
+            color: Colors.white,
+          ),
+        ),
       ),
       // darkTheme: ThemeData.dark().copyWith(
       //   scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 1),
       // ),
-      home: const ResponsiveLayout(
-        webScreenLayout: WebScreenLayout(),
-        mobileScreenLayout: MobileScreenLayout(),
-      ),
+      // home: const ResponsiveLayout(
+      //   webScreenLayout: WebScreenLayout(),
+      //   mobileScreenLayout: MobileScreenLayout(),
+      // ),
+      home: const RegisterScreen(),
     );
   }
 }
+
+//01:02:48
 
 //TODO : Look up how to write firestore database rules
