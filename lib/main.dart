@@ -59,11 +59,11 @@ class _MyAppState extends State<MyApp> {
       //   webScreenLayout: WebScreenLayout(),
       //   mobileScreenLayout: MobileScreenLayout(),
       // ),
-      home: const RegisterScreen(),
+      home: const LoginScreen(),
     );
   }
 }
 
-//01:02:48
+//02:02:48
 
 //TODO : Look up how to write firestore database rules

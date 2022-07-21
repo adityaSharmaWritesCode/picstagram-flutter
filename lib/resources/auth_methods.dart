@@ -9,6 +9,8 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  // REGISTERING USER :
+
   Future<String> signUpUser({
     required String email,
     required String password,
@@ -40,6 +42,8 @@ class AuthMethods {
         });
 
         res = "success";
+      } else {
+        res = "Please enter all the fields properly";
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
@@ -51,6 +55,28 @@ class AuthMethods {
       res = e.toString();
     }
 
+    return res;
+  }
+
+  // LOGGING IN USER :
+  Future<String> logInUser({
+    required String email,
+    required String password,
+  }) async {
+    String res = "Some Error Occured";
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = "success";
+      } else {
+        res = "Please enter all the fields properly";
+      }
+    } on FirebaseAuthException catch (e) {
+      res = e.toString();
+    } catch (e) {
+      res = e.toString();
+    }
     return res;
   }
 }
