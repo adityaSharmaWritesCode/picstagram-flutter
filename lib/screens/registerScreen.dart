@@ -1,4 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:picstagram/resources/auth_methods.dart';
+import 'package:picstagram/utils/utilities.dart';
 import 'package:picstagram/widgets/inputFormField.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -13,7 +18,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-
+  Uint8List? _image;
+  bool _isLoading = false;
   @override
   void dispose() {
     _emailController.dispose();
@@ -21,6 +27,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _usernameController.dispose();
     _bioController.dispose();
     super.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
+
+  void registerUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().signUpUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      username: _usernameController.text,
+      bio: _bioController.text,
+      file: _image!,
+    );
+    setState(() {
+      _isLoading = false;
+    });
+    if (res != 'success') {
+      showSnackbar(context, res);
+    } else {}
   }
 
   @override
@@ -46,16 +78,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(
-                height: 64,
+                //height: 64, //TODO : Rechange height
+                height: 1,
               ),
               //Profile pic selector :
               Stack(
                 children: [
-                  const CircleAvatar(
-                    radius: 64,
-                    backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1085&q=80'),
-                  ),
+                  (_image != null)
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(_image!),
+                        )
+                      : const CircleAvatar(
+                          radius: 64,
+                          backgroundColor: Colors.grey,
+                          child: Icon(Icons.person),
+                        ),
                   const SizedBox(
                     height: 24,
                   ),
@@ -63,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     bottom: -10,
                     left: 80,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: selectImage,
                       icon: const Icon(
                         Icons.add_a_photo,
                       ),
@@ -91,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               //Password input field :
               InputFormField(
-                textEditingController: _emailController,
+                textEditingController: _passwordController,
                 hintText: 'Enter your password',
                 keyType: TextInputType.text,
                 hideInput: true,
@@ -110,7 +148,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               //Sign up button :
               InkWell(
-                onTap: () {},
+                onTap: registerUser,
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -121,7 +159,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  child: const Text('Sign up'),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text('Sign up'),
                 ),
               ),
               const SizedBox(
@@ -156,3 +200,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
+
+
+//TODO : make sure to use email validation, because even firebase uses it
+//TODO : makes ure to make passwords longer than 6 characters, because thats what firebase wants
