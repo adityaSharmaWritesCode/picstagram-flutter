@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:picstagram/resources/auth_methods.dart';
+import 'package:picstagram/responsive/mobile_layout.dart';
+import 'package:picstagram/responsive/responsive.dart';
+import 'package:picstagram/responsive/web_layout.dart';
 import 'package:picstagram/utils/utilities.dart';
 import 'package:picstagram/widgets/inputFormField.dart';
 
@@ -32,7 +35,14 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = false;
     });
     if (res == 'success') {
-      showSnackbar(context, res);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            webScreenLayout: WebScreenLayout(),
+            mobileScreenLayout: MobileScreenLayout(),
+          ),
+        ),
+      );
     } else {
       showSnackbar(context, res);
     }

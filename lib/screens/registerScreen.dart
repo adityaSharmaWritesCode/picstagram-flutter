@@ -3,6 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:picstagram/resources/auth_methods.dart';
+import 'package:picstagram/responsive/mobile_layout.dart';
+import 'package:picstagram/responsive/responsive.dart';
+import 'package:picstagram/responsive/web_layout.dart';
 import 'package:picstagram/utils/utilities.dart';
 import 'package:picstagram/widgets/inputFormField.dart';
 
@@ -52,7 +55,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     });
     if (res != 'success') {
       showSnackbar(context, res);
-    } else {}
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            webScreenLayout: WebScreenLayout(),
+            mobileScreenLayout: MobileScreenLayout(),
+          ),
+        ),
+      );
+    }
   }
 
   @override

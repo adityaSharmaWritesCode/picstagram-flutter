@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:picstagram/models/users.dart';
 import 'package:picstagram/resources/storage_methods.dart';
 
 class AuthMethods {
@@ -31,15 +32,21 @@ class AuthMethods {
         String photoUrl = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
         // add user to our database :
-        await _firestore.collection('users').doc(cred.user!.uid).set({
-          'username': username,
-          'uid': cred.user!.uid,
-          'email': email,
-          'bio': bio,
-          'photoUrl': photoUrl,
-          'followers': [],
-          'following': [],
-        });
+
+        UserModel user = UserModel(
+          email: email,
+          username: username,
+          uid: cred.user!.uid,
+          bio: bio,
+          photoUrl: photoUrl,
+          followers: [],
+          following: [],
+        );
+
+        await _firestore
+            .collection('users')
+            .doc(cred.user!.uid)
+            .set(user.toJson());
 
         res = "success";
       } else {
