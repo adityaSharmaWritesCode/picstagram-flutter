@@ -52,8 +52,11 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Picstagram',
         theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: const Color.fromRGBO(0, 0, 0, 1),
-          primaryColor: const Color.fromRGBO(0, 149, 246, 1),
+          scaffoldBackgroundColor:
+              const Color.fromRGBO(0, 0, 0, 1), // MOBILE BACKGROUND COLOR
+          primaryColor: const Color.fromRGBO(0, 149, 246, 1), // BLUE COLOR
+          highlightColor: Colors.white, //PRIMARY COLOR
+          disabledColor: Colors.grey, //SECONDARY COLOR
           textTheme: const TextTheme(
             displayMedium: TextStyle(
               fontFamily: 'Grand_Hotel',
@@ -97,6 +100,6 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-//02:02:48
+//02:47:58
 
 //TODO : Look up how to write firestore database rules

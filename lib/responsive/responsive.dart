@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:picstagram/providers/user_provider.dart';
-import 'package:picstagram/responsive/dimensions.dart';
+import 'package:picstagram/responsive/constants.dart';
 import 'package:provider/provider.dart';
 
 class ResponsiveLayout extends StatefulWidget {
@@ -32,7 +32,7 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
   Widget build(BuildContext context) {
     //helps in maintaining responsive layout
     return LayoutBuilder(builder: ((context, constraints) {
-      if (constraints.maxWidth > webScreenSize) {
+      if (constraints.maxWidth > kWebScreenSize) {
         return widget.webScreenLayout;
       } else {
         return widget.mobileScreenLayout;
