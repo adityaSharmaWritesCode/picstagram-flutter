@@ -100,6 +100,6 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-//03:09:00
+//04:09:00
 
 //TODO : Look up how to write firestore database rules
