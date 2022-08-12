@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:picstagram/models/users.dart';
 import 'package:picstagram/providers/user_provider.dart';
 import 'package:picstagram/resources/firestore_methods.dart';
+import 'package:picstagram/screens/commentScreen.dart';
 import 'package:picstagram/widgets/animatedLike.dart';
 import 'package:provider/provider.dart';
 
@@ -160,7 +161,13 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CommentScreen(
+                      snap: widget.snap['postId'].toString(),
+                    ),
+                  ),
+                ),
                 icon: const Icon(
                   Icons.comment,
                 ),
